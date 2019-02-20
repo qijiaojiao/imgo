@@ -72,22 +72,15 @@ func Resize(src *image.NRGBA,width int, height int) *image.NRGBA {
 
 	var dst *image.NRGBA
 	
-	var sinc = func(x float64) float64 {
-		if x == 0 {
-			return 1
-		}
-		return math.Sin(math.Pi*x) / (math.Pi * x)
-	}
+	//var sinc = func(x float64) float64 {
+	//	if x == 0 {
+	//		return 1
+	//	}
+	//	return math.Sin(math.Pi*x) / (math.Pi * x)
+	//}
 	
 	var filter resamplingFilter = resamplingFilter{
-		Support: 3.0,
-		Kernel: func(x float64) float64 {
-			x = math.Abs(x)
-			if x < 3.0 {
-				return sinc(x) * sinc(x/3.0)
-			}
-			return 0
-		},
+		Support: 0.0,
 	}
 
 	if filter.Support <= 0.0 {

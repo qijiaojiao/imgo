@@ -104,7 +104,28 @@ func Resize(src *image.NRGBA,width int, height int) *image.NRGBA {
 }
 
 
+// resize image
+func ResizeImage(img image.Image, width int, height int) (imgMatrix [][][]uint8 , err error){
+	nrgba:=convertToNRGBA(img)
+	src:=Resize(nrgba,width,height)
 
+	imgMatrix = NewRGBAMatrix(height,width)
+
+
+	for i:=0;i<height;i++{
+		for j:=0;j<width;j++{
+			c:=src.At(j,i)
+			r,g,b,a:=c.RGBA()
+			imgMatrix[i][j][0]=uint8(r)
+			imgMatrix[i][j][1]=uint8(g)
+			imgMatrix[i][j][2]=uint8(b)
+			imgMatrix[i][j][3]=uint8(a)
+
+		}
+	}
+
+	return
+}
 
 func resizeHorizontal(src *image.NRGBA, width int, filter resamplingFilter) *image.NRGBA {
 	srcBounds := src.Bounds()
